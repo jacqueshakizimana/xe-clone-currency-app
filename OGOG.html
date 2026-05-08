@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Management System - ITUZE</title>
+    <style>
+        body {
+            background-color: #00a844; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+            color: #000;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .logo-container img {
+            width: 150px;
+            height: auto;
+            border: 1px solid #000;
+        }
+
+        .main-border {
+            border: 2px solid #000;
+            min-height: 95vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            color: #ccc;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .layout {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: white;
+            margin: 10px;
+            border: 1px solid #000;
+            height: fit-content;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .sidebar li:hover { background-color: #f0f0f0; }
+
+        .page-content {
+            flex: 1;
+            padding: 20px;
+            display: none; 
+        }
+
+        .active-page { display: block; }
+
+        .stats-container { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .stat-box {
+            width: 160px; height: 80px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            color: white; font-weight: bold; border: 1px solid #000;
+        }
+
+        .bg-lime { background-color: #8db600; }
+        .bg-brown { background-color: #8b5a2b; }
+        .bg-orange { background-color: #e66b23; }
+        .bg-yellow { background-color: yellow; color: black; }
+
+        .input-field {
+            width: 90%; height: 30px;
+            border: 1px solid #000; background-color: #d4e1a1;
+            padding: 5px; margin-top: 5px;
+        }
+
+        table { width: 100%; border-collapse: collapse; background-color: #d4e1a1; margin-bottom: 15px;}
+        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+        th { background-color: #8db600; color: white; }
+
+        .send-button {
+            background-color: #8db600; color: white;
+            padding: 15px 40px; border-radius: 50px; 
+            border: 2px solid #556b2f; font-size: 18px;
+            font-weight: bold; cursor: pointer;
+        }
+
+        .config-item { background: white; padding: 10px; border: 1px solid #000; font-weight: bold; margin-bottom: 10px;}
+
+        [contenteditable="true"]:empty:before {
+            content: attr(data-placeholder);
+            color: rgba(0,0,0,0.5);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="LOGO2.jpg" alt="Clinic Logo">
+</div>
+
+<div class="main-border">
+    <header>WELCOME TO MY PATIENT HEALTH CENTER CLINIC</header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <ul>
+                <li onclick="openPage('p1')">DASHBOARD</li>
+                <li onclick="openPage('p2')">PATIENT REGISTRATION</li>
+                <li onclick="openPage('p3')">PATIENTS LIST</li>
+                <li onclick="openPage('p4')">APPOINTMENTS</li>
+                <li onclick="openPage('p5')">REPORTS</li>
+                <li onclick="openPage('p6')">SYSTEM SETTINGS</li>
+                <li onclick="openPage('p7')">SEND ACTION</li>
+            </ul>
+        </aside>
+
+        <main style="flex: 1;">
+            <!-- DASHBOARD -->
+            <section id="p1" class="page-content active-page">
+                <h2 style="color: white;">CLINIC DASHBOARD</h2>
+                <div class="stats-container">
+                    <div class="stat-box bg-lime">Today Patients: <span contenteditable="true" data-placeholder="0"></span></div>
+                    <div class="stat-box bg-brown">Appointments: <span contenteditable="true" data-placeholder="0"></span></div>
+                    <div class="stat-box bg-orange">Pending: <span contenteditable="true" data-placeholder="0"></span></div>
+                </div>
+            </section>
+
+            <!-- REGISTRATION -->
+            <section id="p2" class="page-content">
+                <h2 style="color: white;">PATIENT REGISTRATION</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; color: white;">
+                    <div>Full Name: <div class="input-field" contenteditable="true" data-placeholder="Andika amazina..."></div></div>
+                    <div>Gender: <div class="input-field" contenteditable="true" data-placeholder="Gabo/Gore..."></div></div>
+                    <div>Date of Birth: <div class="input-field" contenteditable="true" data-placeholder="DD/MM/YYYY..."></div></div>
+                    <div>Phone: <div class="input-field" contenteditable="true" data-placeholder="078..."></div></div>
+                    <div>ID Number: <div class="input-field" contenteditable="true" data-placeholder="Indangamuntu..."></div></div>
+                    <div>Place: <div class="input-field" contenteditable="true" data-placeholder="Aho yatorewe..."></div></div>
+                </div>
+                <button class="send-button" style="margin-top:20px; font-size:14px; padding:10px 20px;">SAVE PATIENT</button>
+            </section>
+
+            <!-- PATIENT LIST -->
+            <section id="p3" class="page-content">
+                <h2 style="color: white;">PATIENTS LIST</h2>
+                <table>
+                    <thead>
+                        <tr><th>ID</th><th>NAME</th><th>GENDER</th><th>PHONE</th><th>ADDRESS</th><th>ACTION</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>001</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>002</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                    </tbody>
+                </table>
+                <div class="bg-yellow" style="padding: 10px; font-weight: bold; border: 1px solid #000;">
+                    TOTAL Patients: <span contenteditable="true" data-placeholder="0"></span>
+                </div>
+            </section>
+
+            <!-- APPOINTMENTS & SCREENING -->
+            <section id="p4" class="page-content">
+                <h2 style="color: white;">APPOINTMENTS & MEDICAL SCREENING</h2>
+                <div style="background-color: #d4e1a1; border: 1px solid #000; padding: 15px; margin-bottom: 20px;">
+                    <h3 style="margin-top: 0;">MEDICAL SCREENING (GUSUZUMA)</h3>
+                    <table>
+                        <thead><tr><th>Indwara</th><th>Ibisubizo</th></tr></thead>
+                        <tbody>
+                            <tr><td>Headache (Umutwe)</td><td contenteditable="true" data-placeholder="Remarks..."></td></tr>
+                            <tr><td>High Fever</td><td contenteditable="true" data-placeholder="C°..."></td></tr>
+                            <tr><td>Malaria</td><td contenteditable="true" data-placeholder="Pos/Neg..."></td></tr>
+                            <tr><td>Cholera</td><td contenteditable="true" data-placeholder="Remarks..."></td></tr>
+                            <tr><td>Heart Disease</td><td contenteditable="true" data-placeholder="B.P..."></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: white;">RELIANCE APPOINTMENTS LIST</h3>
+                <table style="background-color: white;">
+                    <thead><tr><th>Time</th><th>Patient Name</th><th>Doctor</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td>08:00 AM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>09:00 AM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>10:00 AM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>11:00 AM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>12:00 PM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>01:00 PM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>02:00 PM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>03:00 PM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>04:00 PM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>05:00 PM</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- REPORTS -->
+            <section id="p5" class="page-content">
+                <h1 style="color: white;">DAILY REPORTS</h1>
+                <div class="stats-container">
+                    <div class="stat-box bg-lime">TOTAL: <span contenteditable="true">0</span></div>
+                    <div class="stat-box bg-orange">ATTENDING: <span contenteditable="true">0</span></div>
+                    <div class="stat-box bg-yellow" style="color:black">CLINIC TOTAL: <span contenteditable="true">0</span></div>
+                </div>
+                <button class="send-button" onclick="window.print()">PRINT REPORT</button>
+            </section>
+
+            <!-- SETTINGS -->
+            <section id="p6" class="page-content">
+                <h2 style="color: white;">SYSTEM SETTINGS</h2>
+                <div class="config-item">CLINIC NAME: <span contenteditable="true" style="color:blue">ITUZE CLINIC</span></div>
+                <div class="config-item">LANGUAGE: <span contenteditable="true">Kinyarwanda</span></div>
+                <div class="config-item">CURRENCY: <span contenteditable="true">RWF</span></div>
+            </section>
+
+            <!-- SEND ACTION -->
+            <section id="p7" class="page-content">
+                <div style="text-align: center; margin-top: 50px;">
+                    <button id="sendBtn" class="send-button" onclick="animateButton()">SEND DATA</button>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script>
+    function openPage(pageId) {
+        var pages = document.getElementsByClassName("page-content");
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].classList.remove("active-page");
+        }
+        document.getElementById(pageId).classList.add("active-page");
+    }
+
+    function animateButton() {
+        var btn = document.getElementById("sendBtn");
+        btn.innerHTML = "SENDING...";
+        setTimeout(function() {
+            alert("Amakuru yoherejwe neza");
+            btn.innerHTML = "DATA SENT ✓";
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
